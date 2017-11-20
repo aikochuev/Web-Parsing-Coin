@@ -22,7 +22,7 @@ public class Parser {
 
     public static void parse(int limit) throws SQLException, ClassNotFoundException {
         int id = 0;
-        for (int i = 0; i < limit*50; i += 50) {
+        for (int i = 0; i < limit * 50; i += 50) {
             String page_url = "https://coins.lave.ru/forum/viewforum.php?f=50&start=";
             page_url = page_url.concat(Integer.toString(i)); //ссылка на страницу раздела форума
             Elements ele = getElementsFromDocument(page_url);
@@ -65,6 +65,6 @@ public class Parser {
             }
         }
         Connector.SetInfo();
-        System.out.println("Все страницы распарсены и "+Connector.i+" записей занесены в БД");
+        System.out.println("Все страницы распарсены и " + Connector.i + " записей занесены в БД");
     }
 }

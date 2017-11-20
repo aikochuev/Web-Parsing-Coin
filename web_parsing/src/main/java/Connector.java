@@ -4,7 +4,7 @@ import java.sql.*;
 public class Connector {
     public static Connection connect;
     public static Statement statement;
-    public static int i=0;
+    public static int i = 0;
 
     // подключение к базе данных
     public static void Connect() throws ClassNotFoundException, SQLException {
@@ -32,18 +32,20 @@ public class Connector {
     }
 
     public static void SetInfo() throws SQLException {
-        statement.execute("INSERT INTO 'Info' ('LastAdd') VALUES('"+i+"')");
+        statement.execute("INSERT INTO 'Info' ('LastAdd') VALUES('" + i + "')");
     }
+
     public static void GetInfo() throws SQLException {
-        ResultSet resultSet=statement.executeQuery("SELECT * FROM Info ORDER BY id DESC LIMIT 1");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Info ORDER BY id DESC LIMIT 1");
         System.out.println(resultSet.getInt("LastAdd"));
         resultSet.close();
     }
+
     // Заполнение таблицы
     public static void WriteDB(Coin_info coin) throws SQLException {
         ResultSet resSetWrite = statement.executeQuery("SELECT url FROM Coins WHERE url='" + coin.url + "';");
         if (!resSetWrite.next()) {
-            statement.execute("INSERT INTO 'Coins' ('title','url', 'year','userMessage') VALUES ('" + coin.title + "','" + coin.url + "','" + coin.year + "','"+coin.user_message+"');");
+            statement.execute("INSERT INTO 'Coins' ('title','url', 'year','userMessage') VALUES ('" + coin.title + "','" + coin.url + "','" + coin.year + "','" + coin.user_message + "');");
             for (String imgURL : coin.img_url)
                 statement.execute("INSERT INTO 'Img' ('id_page', 'imgUrl') VALUES ((SELECT id FROM Coins ORDER BY id DESC LIMIT 1),'" + imgURL + "');");
             i++;
@@ -74,13 +76,13 @@ public class Connector {
                 tmp.title = resSet.getString("title");
                 tmp.url = resSet.getString("url");
                 tmp.year = resSet.getString("year");
-                tmp.user_message=resSet.getString("mess");
+                tmp.user_message = resSet.getString("mess");
                 current_id = tmp.id;
             }
             tmp.img_url.add(resSet.getString("img"));
         }
         tmp.print();
         resSet.close();
-        System.out.println("Записей выведено = "+current_id);
+        System.out.println("Записей выведено = " + current_id);
     }
 }

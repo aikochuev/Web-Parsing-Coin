@@ -19,19 +19,19 @@ public class Main {
             if (command.equals("show info"))
                 Connector.GetInfo();// вывод количество записей добавленных за последнюю сессию
             if (command.equals("parse")) {
-                int limit=0;
+                int limit = 0;
                 do {
                     System.out.println("Введите количество страниц раздела для парсинга");
                     try {
                         Scanner in2 = new Scanner(System.in);
                         limit = in2.nextInt();
-                        Parser.parse(limit); //парсинг
+                        if (limit > 0)
+                            Parser.parse(limit); //парсинг
                     } catch (Exception e) {
                         System.err.println("Введите число типа int");
                     }
-                }while (limit==0);
+                } while (limit <= 0);
             }
-        }while(!command.equals("exit"));
+        } while (!command.equals("exit"));
     }
 }
-
